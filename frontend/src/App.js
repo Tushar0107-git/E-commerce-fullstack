@@ -1,15 +1,25 @@
 "use client";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Home from "./pages/home";
 import Login from "./pages/Login";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+
         <Route path="/" element={<Home />} />
+
         <Route path="/login" element={<Login />} />
+
+        <Route
+          path="/product/:id"
+          element={<ProductDetails />}
+        />
+
       </Routes>
     </BrowserRouter>
   );

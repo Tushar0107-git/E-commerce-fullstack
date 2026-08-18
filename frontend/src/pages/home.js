@@ -1,34 +1,38 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import ProductCard from "../components/ProductCard";
-import Navbar from "../components/Navbar";
+import { getProducts } from "../services/productService";
+
+import Navbar from "../components/layout/Navbar";
+import Hero from "../components/sections/Hero";
+import Categories from "../components/sections/Categories";
+import FeaturedProducts from "../components/sections/FeaturedProducts";
+import Features from "../components/sections/Features";
+import Newsletter from "../components/sections/Newsletter";
+import Footer from "../components/layout/Footer";
 
 function Home() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/products")
-      .then(res => setProducts(res.data));
+    getProducts()
+      .then((res) => setProducts(res.data))
+      .catch((err) => console.log(err));
   }, []);
 
   return (
-    <div style={{ background: "#f5f5f5", minHeight: "100vh" }}>
+    <div className="bg-slate-50 min-h-screen">
       <Navbar />
 
-      <h2 style={{ textAlign: "center", margin: "20px 0" }}>
-        🛍️ Products
-      </h2>
+      <Hero />
 
-      <div style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "20px",
-        justifyContent: "center"
-      }}>
-        {products.map(p => (
-          <ProductCard key={p.id} product={p} />
-        ))}
-      </div>
+      <Categories />
+
+      <FeaturedProducts products={products} />
+
+      <Features />
+
+      <Newsletter />
+
+      <Footer />
     </div>
   );
 }

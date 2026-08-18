@@ -1,43 +1,81 @@
+import { FiHeart, FiShoppingCart, FiStar } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+
 function ProductCard({ product }) {
+  const navigate = useNavigate();
+
   return (
-    <div style={{
-      border: "1px solid #eee",
-      borderRadius: "12px",
-      padding: "15px",
-      width: "200px",
-      boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-      transition: "0.3s",
-      background: "#fff"
-    }}>
+    <div
+      onClick={() => navigate(`/product/${product.id}`)}
+      className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200 cursor-pointer"
+    >
+      {/* Product Image */}
+      <div className="relative overflow-hidden">
 
-      <img
-        src={product.image}
-        alt={product.name}
-        style={{
-          width: "100%",
-          height: "150px",
-          objectFit: "cover",
-          borderRadius: "10px"
-        }}
-      />
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+        />
 
-      <h3 style={{ margin: "10px 0" }}>{product.name}</h3>
+        {/* Wishlist */}
+        <button
+          onClick={(e) => e.stopPropagation()}
+          className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md hover:bg-red-50 transition"
+        >
+          <FiHeart className="text-slate-600 hover:text-red-500" />
+        </button>
 
-      <p style={{ color: "green", fontWeight: "bold" }}>
-        ₹{product.price}
-      </p>
+        {/* Badge */}
+        <div className="absolute top-4 left-4 bg-blue-600 text-white text-xs px-3 py-1 rounded-full font-semibold">
+          NEW
+        </div>
 
-      <button style={{
-        padding: "8px 12px",
-        background: "#111",
-        color: "#fff",
-        border: "none",
-        borderRadius: "8px",
-        cursor: "pointer"
-      }}>
-        Add to Cart
-      </button>
+      </div>
 
+      {/* Content */}
+      <div className="p-5">
+
+        {/* Rating */}
+        <div className="flex items-center gap-1 text-yellow-500 mb-2">
+          <FiStar fill="currentColor" />
+          <FiStar fill="currentColor" />
+          <FiStar fill="currentColor" />
+          <FiStar fill="currentColor" />
+          <FiStar />
+
+          <span className="text-slate-500 text-sm ml-2">
+            (4.8)
+          </span>
+        </div>
+
+        <h3 className="text-xl font-bold text-slate-900">
+          {product.name}
+        </h3>
+
+        <p className="text-slate-500 text-sm mt-2">
+          Premium quality product with fast delivery.
+        </p>
+
+        <div className="flex items-center gap-3 mt-4">
+          <span className="text-2xl font-bold text-blue-600">
+            ₹{product.price}
+          </span>
+
+          <span className="text-slate-400 line-through">
+            ₹99,999
+          </span>
+        </div>
+
+        <button
+          onClick={(e) => e.stopPropagation()}
+          className="mt-6 w-full bg-slate-900 hover:bg-blue-600 transition-all duration-300 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2"
+        >
+          <FiShoppingCart />
+          Add To Cart
+        </button>
+
+      </div>
     </div>
   );
 }
